@@ -2,6 +2,9 @@
   "name": "qa",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+     "dbup": "knex migrate:latest --knexfile db/knexfile.js"
+   },
   "main": "index.js",
   "author": "Jackson Sharf",
   "license": "ISC",
