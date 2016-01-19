@@ -1,5 +1,4 @@
 module.exports = {
-  
   development: {
     client: 'postgresql',
     connection: {
@@ -7,5 +6,4 @@ module.exports = {
       database: 'slyce'
     }
   }
-
 };

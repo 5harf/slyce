@@ -1,5 +1,5 @@
 module.exports = function (knex) {
-  return knex.schema.createTableIfNotExists('questions', function (table) {
+  return knex.schema.createTable('questions', function (table) {
     table.increments('q_id').primary();
     table.string('text');
     table.string('imageUrl');

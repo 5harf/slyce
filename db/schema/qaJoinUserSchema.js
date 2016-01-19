@@ -1,5 +1,5 @@
 module.exports = function (knex) {
-  return knex.schema.createTableIfNotExists('questions', function (table) {
+  return knex.schema.createTable('qa', function (table) {
     table.increments('q_id').primary();
     table.boolean('is_host');
     table.integer('user_id')
