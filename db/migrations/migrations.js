@@ -16,10 +16,10 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
+    knex.schema.dropTable('qa_join_users'),
     knex.schema.dropTable('answers'),
     knex.schema.dropTable('questions'),
-    knex.schema.dropTable('users'),
     knex.schema.dropTable('qa_session'),
-    knex.schema.dropTable('qa_join_users')
+    knex.schema.dropTable('users')
   ]);
 };
