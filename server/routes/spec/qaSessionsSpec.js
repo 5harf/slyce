@@ -80,7 +80,42 @@ describe('/qa', function () {
             done();
           });
       });
-
     });
   });
+
+  describe('/session_id/questions', function () {
+
+    describe('GET', function () {
+      
+      it('responds with 200', function (done) {
+
+        request(app)
+          .get('/qa/1/questions')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function (err, resp) {
+            if (err) {
+              throw new Error(err);
+            }
+            done();
+          });
+      });
+
+      it('sends back an array of questions', function (done) {
+        
+        request(app)
+          .get('/qa/1/questions')
+          .set('Accept', 'application/json')
+          .end(function (err, resp) {
+            if (err) {
+              throw new Error(err);
+            }
+            expect(Array.isArray(resp.body)).to.equal(true);
+            done();
+          });
+      });
+    });
+  });
+
 });

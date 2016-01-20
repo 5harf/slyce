@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dbup": "knex migrate:latest --knexfile db/knexfile.js",
-    "dbdown": "knex migrate:rollback --knexfile db/knexfile.js"
+    "dbdown": "knex migrate:rollback --knexfile db/knexfile.js",
+    "test": "mocha server/**/spec/*js"
   },
   "main": "index.js",
   "author": "Jackson Sharf",
