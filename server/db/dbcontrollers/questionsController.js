@@ -1,11 +1,9 @@
-var Promise = require('bluebird');
 var _ = require('lodash');
 
 module.exports = function (knex) {
   var module = {};
 
   module.getQuestions = function (sessionId, filter) {
-    //TODO Add filtering based on answered or not answered.
 
     return knex.select('answered_by_user.u_id AS answered_by_user_id', 'answered_by_user.name AS answered_by_user_name', 'asked_by_user.u_id AS asked_by_user_id', 'asked_by_user.name AS asked_by_user_name', 'questions.text AS question_text', 'questions.session_id', 'questions.q_id', 'answers.a_id', 'answers.text AS answer_text', 'answers.image_url AS answer_image_url', 'questions.q_id')
     .from('questions')
@@ -16,6 +14,8 @@ module.exports = function (knex) {
       session_id: sessionId
     })
     .then(function (questions) {
+      
+      //Parse data into a well formed JavaScript object
       var questions = _.reduce(questions, function (accumulator, current) {
         var q_id = current.q_id;
         var answer;
@@ -54,6 +54,8 @@ module.exports = function (knex) {
       questions = _.map(questions, function (question) {
         return question;
       });
+
+      //Filter data before returning
       if (filter === 'answered' || filter === 'unanswered') {
         return _.filter(questions, function (question) {
           if (filter === 'answered') {

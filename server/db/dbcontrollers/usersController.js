@@ -1,7 +1,6 @@
 module.exports = function (knex) {
 
   var module = {};
-
   module.makeUser = function (name) {
     return knex('users').insert({
       name: name

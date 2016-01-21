@@ -5,20 +5,18 @@
   "scripts": {
     "dbup": "knex migrate:latest --knexfile db/knexfile.js",
     "dbdown": "knex migrate:rollback --knexfile db/knexfile.js",
-    "test": "mocha server/**/spec/*js",
+    "test": "mocha server/routes/spec/*js",
     "dbreset": "npm run dbdown && npm run dbup"
   },
   "main": "index.js",
   "author": "Jackson Sharf",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^3.1.1",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "knex": "^0.9.0",
     "lodash": "^4.0.0",
-    "morgan": "^1.6.1",
-    "pg": "^4.4.3"
+    "morgan": "^1.6.1"
   },
   "devDependencies": {
     "chai": "^3.4.1",

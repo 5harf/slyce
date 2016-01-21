@@ -22,7 +22,8 @@ module.exports = function (knex) {
       })
     })
   };
-
+  
+  //Select relevant information about a qa session
   module.querySession = function (sessionId) {
     return knex.select('qa_session.*', 'users.*')
     .from('qa_session')

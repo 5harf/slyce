@@ -1,6 +1,6 @@
 module.exports = function (knex) {
   var module = {};
-
+  
   module.answerQuestion = function (userId, questionId, text, imageUrl) {
     return knex('answers').insert({
       user_id: userId,
