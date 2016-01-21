@@ -12,6 +12,7 @@ module.exports = function (knex) {
   questionCtrl = questionsController(knex);
   
   //Create a new QA session and return the created object
+  //Correct time format for start and end time is: 2001-09-28 01:00:00
   router.route('/')
 
     .post(function (req, res) {
