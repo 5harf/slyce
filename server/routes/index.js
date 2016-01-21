@@ -17,8 +17,8 @@ module.exports = function(knex) {
   answers = answers(knex);
 
   router.use('/qa', qaSessions);
-  router.use('/answers', answers);
-  router.use('/questions', questions);
+  router.use('/answer', answers);
+  router.use('/question', questions);
 
   return router;
 

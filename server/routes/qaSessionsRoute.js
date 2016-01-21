@@ -39,7 +39,8 @@ module.exports = function (knex) {
   router.route('/:session_id/questions')
   .get(function (req, res) {
     var sessionId = req.params.session_id;
-    questionCtrl.getQuestions(sessionId)
+    var filter = req.query.state;
+    questionCtrl.getQuestions(sessionId, filter)
     .then(function (questions) {
       res.send(questions);
     });

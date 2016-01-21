@@ -16,7 +16,8 @@ module.exports = function (knex) {
     var questionId = req.body.question_id;
     var text = req.body.text;
     var imageUrl = req.body.image_url;
-    var name = req.body.answered_by_name;
+    var name = req.body.answered_by;
+    console.log(name);
 
     userCtrl.makeUser(name)
     .then(function (userId) {

@@ -6,7 +6,7 @@ module.exports = function (knex) {
       .references('u_id')
       .inTable('users');
     table.integer('session_id')
-      .references('session_id')
+      .references('qa_id')
       .inTable('qa_session');
   })
 }

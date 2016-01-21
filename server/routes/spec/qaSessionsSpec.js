@@ -13,7 +13,11 @@ describe('/qa', function () {
 
       it('responds with 201', function (done) {
 
-        var qa = {host_name: 'test_name', start_time: '2001-09-28 01:00:00'}
+        var qa = {
+          host_name: 'test_name',
+          start_time: '2001-09-28 01:00:00'
+        }
+
         request(app)
           .post('/qa')
           .send(qa)
@@ -40,7 +44,7 @@ describe('/qa', function () {
             if (err) {
               throw new Error(err);
             }
-            expect(resp.body.session_id).to.be.a('number');
+            expect(resp.body.qa_id).to.be.a('number');
             done();
           });
       });
@@ -76,8 +80,7 @@ describe('/qa', function () {
             if (err) {
               throw new Error(err);
             }
-            console.log('resp.body new =', resp.body);
-            expect(resp.body.session_id).to.be.a('number');
+            expect(resp.body.qa_id).to.be.a('number');
             done();
           });
       });

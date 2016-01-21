@@ -24,7 +24,7 @@ describe('/answers', function () {
         }
 
         request(app)
-          .post('/questions/1')
+          .post('/question/1')
           .send(question)
           .set('Accept', 'application/json')
           .end(function (err, resp) {
@@ -43,14 +43,14 @@ describe('/answers', function () {
       it('responds with 201', function (done) {
 
         var answer = {
-          answered_by_name: 'test name',
+          answered_by: 'test name',
           text: 'test answer',
           question_id: 1,
           image_url: "www.google.com"
         }
 
         request(app)
-          .post('/answers/1')
+          .post('/answer/1')
           .send(answer)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
@@ -68,14 +68,14 @@ describe('/answers', function () {
       it('creates the answer object', function (done) {
 
         var answer = {
-          answered_by_name: 'test name',
+          answered_by: 'test name 2',
           text: 'test answer 2',
           question_id: 1,
-          image_url: "www.google.com"
+          image_url: "www.yahoo.com"
         }
 
         request(app)
-          .post('/answers/1')
+          .post('/answer/1')
           .send(answer)
           .set('Accept', 'application/json')
           .end(function (err, resp) {

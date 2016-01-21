@@ -9,7 +9,7 @@ module.exports = function (knex) {
     return knex('qa_session').insert({
       start_time: startTime,
       end_time: endTime
-    }).returning('session_id')
+    }).returning('qa_id')
     .then(function (sessionId) {
       sessionId = sessionId[0];
       return knex('qa_join_users').insert({
@@ -27,12 +27,19 @@ module.exports = function (knex) {
   };
 
   module.querySession = function (sessionId) {
-    return knex.select('*')
+    return knex.select('qa_session.*', 'users.*')
     .from('qa_session')
-    .innerJoin('qa_join_users', 'qa_join_users.session_id', 'qa_session.session_id')
+    .innerJoin('qa_join_users', 'qa_join_users.session_id', 'qa_session.qa_id')
     .innerJoin('users', 'users.u_id', 'qa_join_users.user_id')
+    .where({
+      qa_id: sessionId
+    })
     .then(function (session) {
-      return session
+      return questionCtrl.getQuestions(sessionId)
+      .then(function (questions) {
+        session[0].questions = questions;
+        return session[0];
+      })
     })
 
   } 

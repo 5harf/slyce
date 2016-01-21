@@ -25,7 +25,7 @@ describe('/questions', function () {
         }
 
         request(app)
-          .post('/questions/1')
+          .post('/question/1')
           .send(question)
           .set('Accept', 'application/json')
           .end(function (err, resp) {
@@ -43,7 +43,7 @@ describe('/questions', function () {
       it('responds with 201', function (done) {
 
         request(app)
-          .post('/questions/1')
+          .post('/question/1')
           .send(question)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
@@ -61,7 +61,7 @@ describe('/questions', function () {
       it('creates the question object', function (done) {
 
         request(app)
-          .post('/questions/1')
+          .post('/question/1')
           .send(question)
           .set('Accept', 'application/json')
           .end(function (err, resp) {
