@@ -12,7 +12,7 @@ module.exports = function (knex) {
 
   router.route('/:question_id')
   .post(function (req, res) {
-    
+
     var questionId = req.body.question_id;
     var text = req.body.text;
     var imageUrl = req.body.image_url;
@@ -26,9 +26,6 @@ module.exports = function (knex) {
       res.status(201);
       res.send(answer);
     })
-
-
-
   }) 
 
   return router;

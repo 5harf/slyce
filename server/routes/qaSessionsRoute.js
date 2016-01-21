@@ -10,7 +10,6 @@ module.exports = function (knex) {
   userCtrl = usersController(knex);
   qaCtrl = qaSessionsController(knex);
   questionCtrl = questionsController(knex);
-  //TODO add routes for post /, get /:session_id, get /:session_id/questions
 
   router.route('/')
   .post(function (req, res) {
@@ -19,18 +18,22 @@ module.exports = function (knex) {
     .then(function (userId) {
       qaCtrl.makeQaSession(hostName, req.body.start_time, req.body.end_time, userId)
       .then(function (sessionId) {
-        //send back event object
-        res.status(201);
-        res.send(qaCtrl.querySession(sessionId));
+        qaCtrl.querySession(sessionId)
+        .then(function (session) {
+          res.status(201);
+          res.send(session);
+        });
       });
-      
     });
   });
 
   router.route('/:session_id')
   .get(function (req, res) {
     var sessionId = req.params.session_id;
-    res.send(qaCtrl.querySession(sessionId))
+    qaCtrl.querySession(sessionId)
+    .then(function (session) {
+      res.send(session);
+    });
   });
 
   router.route('/:session_id/questions')

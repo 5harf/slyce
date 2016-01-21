@@ -11,10 +11,10 @@ module.exports = function (knex) {
   questionCtrl = questionsController(knex);
 
 
-  router.route('/:question_id')
+  router.route('/:session_id')
   .post(function (req, res) {
 
-    var sessionId = req.body.session_id;
+    var sessionId = req.params.session_id;
     var text = req.body.text;
     var name = req.body.asked_by_name;
 

@@ -5,6 +5,8 @@ var request = require('supertest');
 var knex = require('../../db/index');
 var app = require('../../index');
 
+var question;
+
 describe('/questions', function () {
 
   before(function () {
@@ -17,10 +19,9 @@ describe('/questions', function () {
         if (err) {
           throw new Error(err);
         }
-        var question = {
+        question = {
           asked_by_name: 'test name',
-          text: 'test question',
-          session_id: 1
+          text: 'test question'
         }
 
         request(app)
@@ -41,12 +42,6 @@ describe('/questions', function () {
 
       it('responds with 201', function (done) {
 
-        var question = {
-          asked_by_name: 'test name',
-          text: 'test question',
-          session_id: 1
-        }
-
         request(app)
           .post('/questions/1')
           .send(question)
@@ -64,12 +59,6 @@ describe('/questions', function () {
       });
 
       it('creates the question object', function (done) {
-
-        var question = {
-          asked_by_name: 'test name',
-          text: 'test question',
-          session_id: 1
-        }
 
         request(app)
           .post('/questions/1')

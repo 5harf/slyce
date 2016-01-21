@@ -1,19 +1,57 @@
+var Promise = require('bluebird');
+var _ = require('lodash');
+
 module.exports = function (knex) {
   var module = {};
 
   module.getQuestions = function (sessionId) {
-    //TODO return with ask/answer user models, and answers for each of the questions.  Also add filtering based on answered or not answered.
-    return knex('questions').where({
+    //TODO Add filtering based on answered or not answered.
+
+    return knex.select('answered_by_user.u_id AS answered_by_user_id', 'answered_by_user.name AS answered_by_user_name', 'asked_by_user.u_id AS asked_by_user_id', 'asked_by_user.name AS asked_by_user_name', 'questions.text AS question_text', 'questions.session_id', 'questions.q_id', 'answers.a_id', 'answers.text AS answer_text', 'answers.image_url AS answer_image_url')
+    .from('questions')
+    .leftJoin('answers', 'questions.q_id', 'answers.question_id')
+    .innerJoin('users AS asked_by_user', 'asked_by_user.u_id', 'questions.user_id')
+    .innerJoin('users AS answered_by_user', 'answers.user_id', 'answered_by_user.u_id')
+    .where({
       session_id: sessionId
     })
+    .then(function (questions) {
+      var questions = _.reduce(questions, function (accumulator, current) {
+        var q_id = current.q_id;
+        var answer = {
+                text: current.answer_text,
+                image_url: current.answer_image_url,
+                answered_by_user: {
+                  u_id: current.answered_by_user_id,
+                  name: current.answered_by_user_name
+                }
+              };
+        if (accumulator[q_id]) {
+          accumulator[q_id].answers.push(answer);
+        } else {
+          accumulator[q_id] = {
+            text: current.question_text,
+            session_id: current.session_id,
+            asked_by_user: {
+              u_id: current.asked_by_user_id,
+              name: current.asked_by_user_name
+            },
+            answers: [answer]
+          };
+        }
+        return accumulator;
+      }, {})
+      return _.map(questions, function (question) {
+        return question;
+      });
+    });
   };
 
-  module.askQuestion = function (sessionId, userId, text, imageUrl) {
+  module.askQuestion = function (sessionId, userId, text) {
     return knex('questions').insert({
       session_id: sessionId,
       user_id: userId,
-      text: text,
-      image_url: imageUrl
+      text: text
     }).returning('q_id')
     .then(function(questionId) {
       return knex('questions').where({

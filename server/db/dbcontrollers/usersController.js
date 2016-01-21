@@ -1,4 +1,5 @@
 module.exports = function (knex) {
+
   var module = {};
 
   module.makeUser = function (name) {
@@ -13,7 +14,7 @@ module.exports = function (knex) {
       throw new Error(err);
     });
   }
-
+  
   return module;
 
 };

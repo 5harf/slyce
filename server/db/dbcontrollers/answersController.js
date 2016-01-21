@@ -20,7 +20,6 @@ module.exports = function (knex) {
     .catch(function (err) {
       throw new Error(err);
     });
-
   }
 
   return module;

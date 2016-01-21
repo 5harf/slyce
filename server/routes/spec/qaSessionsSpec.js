@@ -47,7 +47,7 @@ describe('/qa', function () {
     });
   });
 
-  describe('/session_id', function () {
+  describe('/:session_id', function () {
 
     describe('GET', function () {
 
@@ -76,6 +76,7 @@ describe('/qa', function () {
             if (err) {
               throw new Error(err);
             }
+            console.log('resp.body new =', resp.body);
             expect(resp.body.session_id).to.be.a('number');
             done();
           });
@@ -83,7 +84,7 @@ describe('/qa', function () {
     });
   });
 
-  describe('/session_id/questions', function () {
+  describe('/:session_id/questions', function () {
 
     describe('GET', function () {
       

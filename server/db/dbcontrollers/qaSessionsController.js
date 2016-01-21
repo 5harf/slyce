@@ -1,5 +1,9 @@
+var questionsController = require('./questionsController');
+
 module.exports = function (knex) {
   var module = {};
+
+  questionCtrl = questionsController(knex);
 
   module.makeQaSession = function (hostName, startTime, endTime, userId) {
     return knex('qa_session').insert({
@@ -22,8 +26,15 @@ module.exports = function (knex) {
     })
   };
 
-  module.querySession = function () {
-    return {name: 'test', questions: 'test', session_id: 1};
+  module.querySession = function (sessionId) {
+    return knex.select('*')
+    .from('qa_session')
+    .innerJoin('qa_join_users', 'qa_join_users.session_id', 'qa_session.session_id')
+    .innerJoin('users', 'users.u_id', 'qa_join_users.user_id')
+    .then(function (session) {
+      return session
+    })
+
   } 
 
   return module;

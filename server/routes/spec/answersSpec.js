@@ -59,7 +59,6 @@ describe('/answers', function () {
             if (err) {
               throw new Error(err);
             }
-            console.log('resp.body =', resp.body);
             expect(resp.body).to.be.an('object');
             done();
           });
