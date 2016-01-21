@@ -17,6 +17,9 @@ module.exports = function (knex) {
         return sessionId;
       })
     })
+    .catch(function (err) {
+      throw new Error(err);
+    })
   };
 
   module.querySession = function () {

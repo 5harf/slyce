@@ -8,10 +8,19 @@ module.exports = function (knex) {
       text: text,
       image_url: imageUrl
     })
-    .returning('u_id')
-    .then(function (userId) {
-      return userId[0];
+    .returning('a_id')
+    .then(function (answerId) {
+      return knex('answers').where({
+        a_id: answerId[0]
+      });
+    })
+    .then(function(answer) {
+      return answer[0];
+    })
+    .catch(function (err) {
+      throw new Error(err);
     });
+
   }
 
   return module;

@@ -7,6 +7,34 @@ var app = require('../../index');
 
 describe('/questions', function () {
 
+  before(function () {
+    var qa = {host_name: 'test_name', start_time: '2001-09-28 01:00:00'}
+    request(app)
+      .post('/qa')
+      .send(qa)
+      .set('Accept', 'application/json')
+      .end(function (err, resp) {
+        if (err) {
+          throw new Error(err);
+        }
+        var question = {
+          asked_by_name: 'test name',
+          text: 'test question',
+          session_id: 1
+        }
+
+        request(app)
+          .post('/questions/1')
+          .send(question)
+          .set('Accept', 'application/json')
+          .end(function (err, resp) {
+            if (err) {
+              throw new Error(err);
+            }
+          });
+      })
+  })
+
   describe('/:session_id', function () {
 
     describe('POST', function () {

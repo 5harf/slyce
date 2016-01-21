@@ -2,7 +2,7 @@ module.exports = function (knex) {
   return knex.schema.createTable('answers', function (table) {
     table.increments('a_id').primary();
     table.string('text');
-    table.string('imageUrl');
+    table.string('image_url');
     table.integer('question_id')
       .references('q_id')
       .inTable('questions');

@@ -8,6 +8,9 @@ module.exports = function (knex) {
     .returning('u_id')
     .then(function (userId) {
       return userId[0];
+    })
+    .catch(function (err) {
+      throw new Error(err);
     });
   }
 

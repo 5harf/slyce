@@ -5,7 +5,8 @@
   "scripts": {
     "dbup": "knex migrate:latest --knexfile db/knexfile.js",
     "dbdown": "knex migrate:rollback --knexfile db/knexfile.js",
-    "test": "mocha server/**/spec/*js"
+    "test": "mocha server/**/spec/*js",
+    "dbreset": "npm run dbdown && npm run dbup"
   },
   "main": "index.js",
   "author": "Jackson Sharf",

@@ -18,10 +18,13 @@ module.exports = function (knex) {
     .then(function(questionId) {
       return knex('questions').where({
         q_id: questionId[0]
-      })
+      });
     })
     .then(function(question) {
       return question[0];
+    })
+    .catch(function (err) {
+      throw new Error(err);
     });
   }
 
