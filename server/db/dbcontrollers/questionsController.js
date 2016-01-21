@@ -66,9 +66,6 @@ module.exports = function (knex) {
         return questions;
       }
     })
-    .catch(function (err) {
-      throw new Error(err);
-    });
   };
 
   module.askQuestion = function (sessionId, userId, text) {
@@ -85,9 +82,6 @@ module.exports = function (knex) {
     .then(function(question) {
       return question[0];
     })
-    .catch(function (err) {
-      throw new Error(err);
-    });
   }
 
   return module;

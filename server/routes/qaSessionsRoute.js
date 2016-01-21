@@ -16,13 +16,17 @@ module.exports = function (knex) {
     var hostName = req.body.host_name;
     userCtrl.makeUser(hostName)
     .then(function (userId) {
-      qaCtrl.makeQaSession(hostName, req.body.start_time, req.body.end_time, userId)
-      .then(function (sessionId) {
-        qaCtrl.querySession(sessionId)
-        .then(function (session) {
-          res.status(201);
-          res.send(session);
-        });
+      return qaCtrl.makeQaSession(hostName, req.body.start_time, req.body.end_time, userId)
+    })
+    .then(function (sessionId) {
+      return qaCtrl.querySession(sessionId)
+    })
+    .then(function (session) {
+      res.status(201).send(session);
+    })
+    .catch(function (err) {
+      res.status(500).json({
+        message: err
       });
     });
   });
@@ -33,6 +37,11 @@ module.exports = function (knex) {
     qaCtrl.querySession(sessionId)
     .then(function (session) {
       res.send(session);
+    })
+    .catch(function (err) {
+      res.status(500).json({
+        message: err
+      });
     });
   });
 
@@ -43,6 +52,11 @@ module.exports = function (knex) {
     questionCtrl.getQuestions(sessionId, filter)
     .then(function (questions) {
       res.send(questions);
+    })
+    .catch(function (err) {
+      res.status(500).json({
+        message: err
+      });
     });
   });
 

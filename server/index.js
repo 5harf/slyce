@@ -5,14 +5,12 @@ var path = require('path');
 
 var port = 8080;
 
-var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
 
 var app = express();
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
 
 app.use(router(knex));
 

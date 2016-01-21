@@ -17,9 +17,6 @@ module.exports = function (knex) {
     .then(function(answer) {
       return answer[0];
     })
-    .catch(function (err) {
-      throw new Error(err);
-    });
   }
 
   return module;

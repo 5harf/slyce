@@ -5,7 +5,6 @@ var usersController = require('../db/dbcontrollers/usersController');
 var questionsController = require('../db/dbcontrollers/questionsController');
 
 module.exports = function (knex) {
-  //TODO add routes
 
   userCtrl = usersController(knex);
   questionCtrl = questionsController(knex);
@@ -23,10 +22,14 @@ module.exports = function (knex) {
       return questionCtrl.askQuestion(sessionId, userId, text)
     })
     .then(function (question) {
-      res.status(201);
-      res.send(question)
+      res.status(201).send(question)
     })
-  })
+    .catch(function (err) {
+      res.status(500).json({
+        message: err
+      });
+    });
+  });
 
   return router;
 }

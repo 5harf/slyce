@@ -17,7 +17,6 @@ module.exports = function (knex) {
     var text = req.body.text;
     var imageUrl = req.body.image_url;
     var name = req.body.answered_by;
-    console.log(name);
 
     userCtrl.makeUser(name)
     .then(function (userId) {
@@ -27,7 +26,12 @@ module.exports = function (knex) {
       res.status(201);
       res.send(answer);
     })
-  }) 
+    .catch(function (err) {
+      res.status(500).json({
+        message: err
+      });
+    });
+  }); 
 
   return router;
 }
